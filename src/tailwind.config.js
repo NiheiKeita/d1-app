@@ -1,5 +1,5 @@
-import defaultTheme from 'tailwindcss/defaultTheme';
-import forms from '@tailwindcss/forms';
+import defaultTheme from 'tailwindcss/defaultTheme'
+import forms from '@tailwindcss/forms'
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -26,8 +26,22 @@ export default {
                     sub: "#7FA5FE"
                 },
             },
+            animation: {
+                'fade-in': 'fadeIn 2s ease-in-out',
+                'twinkle': 'twinkle 1s infinite ease-in-out',
+            },
+            keyframes: {
+                fadeIn: {
+                    '0%': { opacity: 0 },
+                    '100%': { opacity: 1 },
+                },
+                twinkle: {
+                    '0%, 100%': { opacity: 0.2, transform: 'scale(1)' },
+                    '50%': { opacity: 1, transform: 'scale(1.5)' },
+                },
+            },
         },
     },
 
     plugins: [forms],
-};
+}
