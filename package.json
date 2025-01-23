@@ -9,5 +9,10 @@
     "build": "npm --prefix ./src run build",
     "type-check": "npm --prefix ./src run type-check",
     "test-storybook": "npm --prefix ./src run test-storybook"
+  },
+  "msw": {
+    "workerDirectory": [
+      "src/public"
+    ]
   }
 }
