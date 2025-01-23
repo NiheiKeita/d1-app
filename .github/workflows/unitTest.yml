@@ -42,6 +42,8 @@ jobs:
         run: npm run build-storybook
       - name: Serve Storybook
         run: npx serve storybook-static -l 6006 &
+      - name: msw
+        run:  npx msw init ./src/public
       - name: storybookTest
         run: npm run test-storybook
 
