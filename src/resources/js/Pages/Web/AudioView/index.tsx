@@ -18,7 +18,7 @@ export const AudioView = React.memo(function AudioView() {
     }, [])
     return (
         <>
-            <Button onClick={() => { playDQOverture() }}>ドラクエ</Button>
+            {/* <Button onClick={() => { playDQOverture() }}>ドラクエ</Button> */}
 
             <Button onClick={() => { playFamimaMelody() }}>ファミマ</Button>
             <Button onClick={() => { playTulipSong() }}>チューリップ</Button>
