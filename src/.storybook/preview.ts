@@ -4,7 +4,7 @@ import { initialize, mswLoader } from 'msw-storybook-addon'
 
 initialize({
     serviceWorker: {
-        url: '/music-app/mockServiceWorker.js'
+        url: '/d1-app/mockServiceWorker.js'
     }
 })
 const preview: Preview = {
