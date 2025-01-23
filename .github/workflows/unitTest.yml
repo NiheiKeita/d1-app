@@ -39,7 +39,7 @@ jobs:
       # - name: typeCheck
       #   run: npm run type-check
       - name: msw
-       run:  npx msw init ./src/public
+        run:  npx msw init ./src/public
       - name: Build Storybook 
         run: npm run build-storybook
       - name: Serve Storybook
