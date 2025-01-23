@@ -12,7 +12,6 @@ export const GameView = React.memo(function GameView() {
     return (
         <Match>
             <When exp={screen === "start"}>
-                {screen}
                 <DragonQuestTitle onChangeScreen={handleChangeScreen} />
             </When>
             <When exp={screen === "nameInput"}>
