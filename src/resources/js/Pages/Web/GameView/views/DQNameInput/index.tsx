@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from "react"
 
-export const DQNameInput: React.FC = () => {
-    // const characters = [
-    //     "あ", "い", "う", "え", "お",
-    //     "か", "き", "く", "け", "こ",
-    //     "さ", "し", "す", "せ", "そ",
-    //     "た", "ち", "つ", "て", "と",
-    //     "な", "に", "ぬ", "ね", "の",
-    //     "は", "ひ", "ふ", "へ", "ほ",
-    //     "ま", "み", "む", "め", "も",
-    //     "や", "ゆ", "よ", "", "",
-    //     "ら", "り", "る", "れ", "ろ",
-    //     "わ", "を", "ん", "", "ー",
-    // ]
+type Props = {
+    onChangeScreen: (screen: string) => void
+}
+
+export const DQNameInput = React.memo<Props>(function DQNameInput({
+    onChangeScreen
+}) {
     const characters = [
         "あ", "か", "さ", "た", "な", "は", "ま", "や", "ら", "わ",
         "い", "き", "し", "ち", "に", "ひ", "み", "ゆ", "り", "を",
@@ -22,7 +16,7 @@ export const DQNameInput: React.FC = () => {
     ]
 
     const [name, setName] = useState<string[]>([])
-    const [cursorIndex, setCursorIndex] = useState(0)
+    const [cursorIndex, setCursorIndex] = useState(27)
     const [deleteMode, setDeleteMode] = useState(false) // 削除モードフラグ
 
     // エンターキーで文字を入力
@@ -43,7 +37,6 @@ export const DQNameInput: React.FC = () => {
     // キー操作でカーソル移動
     const handleKeyDown = (event: KeyboardEvent) => {
         const columnCount = 10 // 列の数（縦書き配置）
-        const rowCount = characters.length / columnCount
 
         if (event.key === "ArrowRight") {
             setCursorIndex((prev) => (prev + 1) % characters.length)
@@ -105,7 +98,7 @@ export const DQNameInput: React.FC = () => {
                                 >
                                     {characters[charIndex] || ""}
                                     {cursorIndex === charIndex && (
-                                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-yellow-500" />
+                                        <div className="absolute bottom-0 left-0 right-0 h-1 animate-twinkleSmall bg-yellow-500" />
                                     )}
                                 </div>
                             )
@@ -115,6 +108,6 @@ export const DQNameInput: React.FC = () => {
             </div>
         </div>
     )
-}
+})
 
 export default DQNameInput

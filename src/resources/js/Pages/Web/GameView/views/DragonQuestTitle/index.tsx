@@ -1,8 +1,41 @@
-import React, { useState, useEffect } from 'react'
+import { playDQOverture, playDQOvertureMusic } from '@/hooks/audio/music/playDQOverture'
+import React, { useState, useEffect, useCallback } from 'react'
 
-export const DragonQuestTitle = React.memo(function Button() {
+type Props = {
+    onChangeScreen: (screen: string) => void
+}
+
+export const DragonQuestTitle = React.memo<Props>(function DragonQuestTitle({
+    onChangeScreen
+}) {
     const [selectedMenu, setSelectedMenu] = useState(0) // Start, Continue の選択状態
     const [selectedSpeed, setSelectedSpeed] = useState(1) // Slow, Normal, Early の選択状態
+
+    useEffect(() => {
+        const controller = new AbortController()
+        const { signal } = controller
+
+        const playMusic = async () => {
+            try {
+                while (!signal.aborted) {
+                    await playDQOvertureMusic(signal)
+                }
+            } catch (error) {
+                if (signal.aborted) {
+                    console.log("音楽の再生がキャンセルされました。")
+                } else {
+                    console.error("再生中にエラーが発生しました:", error)
+                }
+            }
+        }
+
+        playMusic()
+
+        // クリーンアップで再生を停止
+        return () => {
+            controller.abort()
+        }
+    }, [])
 
     const menuOptions = ['Start', 'Continue']
     const speedOptions = ['Slow', 'Normal', 'Early']
@@ -13,6 +46,7 @@ export const DragonQuestTitle = React.memo(function Button() {
         } else {
             setSelectedMenu((prev) => (prev + 1) % menuOptions.length)
         }
+        console.log('selectedMenu:', selectedMenu)
     }
 
     const handleSpeedNavigation = (direction: 'left' | 'right') => {
@@ -22,6 +56,17 @@ export const DragonQuestTitle = React.memo(function Button() {
             setSelectedSpeed((prev) => (prev + 1) % speedOptions.length)
         }
     }
+
+    const handleEnter = useCallback(() => {
+        console.log('selectedMenu:', selectedMenu)
+        if (selectedMenu === 0) {
+            onChangeScreen("nameInput")
+        }
+        if (selectedMenu === 1) {
+            console.log('Go to Continue')
+        }
+    }, [selectedMenu])
+
 
     return (
         <div className="relative flex h-screen flex-col items-center justify-center overflow-hidden bg-black text-2xl font-bold text-white">
@@ -90,9 +135,10 @@ export const DragonQuestTitle = React.memo(function Button() {
                     if (e.key === 'ArrowDown') handleMenuNavigation('down')
                     if (e.key === 'ArrowLeft') handleSpeedNavigation('left')
                     if (e.key === 'ArrowRight') handleSpeedNavigation('right')
+                    if (e.key === 'Enter') handleEnter()
                 }}
             ></div>
-        </div>
+        </div >
     )
 })
 

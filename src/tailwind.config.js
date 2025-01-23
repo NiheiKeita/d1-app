@@ -29,6 +29,7 @@ export default {
             animation: {
                 'fade-in': 'fadeIn 2s ease-in-out',
                 'twinkle': 'twinkle 1s infinite ease-in-out',
+                'twinkleSmall': 'twinkleSmall 1s infinite ease-in-out',
             },
             keyframes: {
                 fadeIn: {
@@ -38,6 +39,10 @@ export default {
                 twinkle: {
                     '0%, 100%': { opacity: 0.2, transform: 'scale(1)' },
                     '50%': { opacity: 1, transform: 'scale(1.5)' },
+                },
+                twinkleSmall: {
+                    '0%, 100%': { opacity: 0.2, transform: 'scale(1)' },
+                    '50%': { opacity: 1, transform: 'scale(1.2)' },
                 },
             },
         },
